@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dolly Dong 董娅菲 — Growth Marketer & Brand Storyteller</title>
+<meta name="description" content="董娅菲 Dolly · 用户增长与品牌运营 · AI 出海 NeoDrop 北美增长 · 小米品牌传播 · based in Hong Kong" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#000000;
+  --white:#ffffff;
+  --emerald:#00d294;
+  --emerald-l:#34d399;
+  --blue:#54a2ff;
+  --purple:#c07eff;
+  --muted:rgba(255,255,255,.62);
+  --faint:rgba(255,255,255,.42);
+  --line:rgba(255,255,255,.12);
+  --card:rgba(255,255,255,.04);
+  --card-hover:rgba(255,255,255,.07);
+  --font-sans:"Inter","Noto Sans SC","PingFang SC",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","Noto Sans SC",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{background:var(--bg);color:var(--white);font-family:var(--font-sans);line-height:1.6;min-height:100vh;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--emerald);color:#000}
+
+.grad{background:linear-gradient(100deg,var(--emerald) 0%,var(--blue) 50%,var(--purple) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- loading ---------- */
+#loader{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;transition:opacity .7s ease}
+#loader.done{opacity:0;pointer-events:none}
+#loader .lp{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.35em;color:var(--muted);text-transform:uppercase}
+.bars{display:flex;align-items:flex-end;gap:.4rem}
+.bars div{width:.4rem;height:12px;background:var(--emerald);border-radius:9999px;box-shadow:0 0 12px 1px rgba(0,210,148,.7)}
+@keyframes bar-pulse{0%,100%{opacity:.35;height:8px}50%{opacity:1;height:30px}}
+.bars div:nth-child(1){animation:bar-pulse 1s ease-in-out infinite}
+.bars div:nth-child(2){animation:bar-pulse 1s ease-in-out .15s infinite}
+.bars div:nth-child(3){animation:bar-pulse 1s ease-in-out .3s infinite}
+.bars div:nth-child(4){animation:bar-pulse 1s ease-in-out .45s infinite}
+#page{opacity:0;transition:opacity .8s ease}
+#page.ready{opacity:1}
+
+/* ---------- background glow ---------- */
+.bg-glow{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-glow i{position:absolute;border-radius:50%;filter:blur(130px);opacity:.18}
+.bg-glow .g1{width:45vw;height:45vw;top:-8vw;left:-8vw;background:var(--emerald)}
+.bg-glow .g2{width:42vw;height:42vw;bottom:-12vw;right:-10vw;background:var(--purple)}
+.bg-glow .g3{width:38vw;height:38vw;bottom:-14vw;left:-10vw;background:var(--blue);opacity:.12}
+.noise{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- nav (floating pill) ---------- */
+nav{position:fixed;top:1.1rem;left:0;right:0;z-index:40;display:flex;justify-content:center;padding:0 1rem}
+.nav-pill{display:flex;align-items:center;gap:.35rem;background:rgba(15,15,17,.72);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:9999px;padding:.5rem .65rem;box-shadow:0 10px 40px -18px rgba(0,0,0,.9)}
+.nav-logo{font-family:var(--font-mono);font-weight:700;font-size:.9rem;padding:.3rem .7rem;letter-spacing:.02em}
+.nav-sep{width:1px;height:1.1rem;background:var(--line);margin:0 .35rem}
+.nav-links{display:none;align-items:center;gap:.15rem}
+.nav-item{font-size:.9rem;color:var(--muted);padding:.4rem .8rem;border-radius:9999px;transition:color .2s,background .2s}
+.nav-item:hover{color:var(--white);background:rgba(255,255,255,.06)}
+.hamburger{font-size:1.15rem;line-height:1;padding:.3rem .6rem}
+.mobile-menu{position:fixed;inset:0;z-index:44;background:rgba(0,0,0,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;font-family:var(--font-mono);font-size:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+@media(min-width:48rem){.nav-links{display:flex}.hamburger{display:none}}
+
+/* ---------- hero ---------- */
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 1.25rem 4rem}
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.85rem;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:9999px;padding:.45rem 1rem}
+.badge .dot{width:.55rem;height:.55rem;border-radius:9999px;background:var(--emerald);box-shadow:0 0 10px 3px rgba(0,210,148,.8);animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes pulse{50%{opacity:.5}}
+.hero-name{font-weight:800;letter-spacing:-.045em;line-height:.95;font-size:clamp(3.5rem,15vw,11rem);margin-top:2rem}
+.hero-role{font-family:var(--font-mono);font-weight:500;font-size:clamp(1.3rem,5vw,2.6rem);margin-top:.4rem;min-height:1.3em}
+.hero-role .cursor{display:inline-block;width:.06em;height:1em;background:var(--emerald);margin-left:.06em;transform:translateY(.14em);animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-tagline{font-size:clamp(1rem,2.6vw,1.5rem);color:var(--muted);max-width:52rem;margin-top:2rem;line-height:1.5;font-weight:300}
+.hero-tagline .sep{color:var(--faint);margin:0 .15em}
+.socials{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.9rem;margin-top:2.75rem}
+.sbtn{display:inline-flex;align-items:center;gap:.6rem;font-size:.98rem;font-weight:500;padding:.75rem 1.5rem;border-radius:9999px;border:1px solid var(--line);color:var(--white);background:rgba(255,255,255,.03);transition:transform .2s,background .2s,border-color .2s}
+.sbtn:hover{transform:translateY(-2px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.3)}
+.sbtn.solid{background:var(--white);color:#000;border-color:var(--white)}
+.sbtn.solid:hover{background:#e9e9e9}
+.sbtn .soon{font-family:var(--font-mono);font-size:.62rem;color:var(--faint);border:1px dashed var(--line);border-radius:9999px;padding:.05rem .4rem;margin-left:.1rem}
+
+@keyframes rise{0%{opacity:0;transform:translateY(26px)}100%{opacity:1;transform:translateY(0)}}
+.rise{animation:rise .85s cubic-bezier(.215,.61,.355,1) both}
+
+/* ---------- section shell ---------- */
+section{scroll-margin-top:6rem}
+.wrap{max-width:64rem;margin:0 auto;padding:0 1.25rem}
+.sec{padding:5.5rem 0}
+.sec-head{text-align:center;margin-bottom:3rem}
+.sec-label{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.22em;color:var(--emerald);text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem}
+.sec-label::before,.sec-label::after{content:"";width:1.6rem;height:1px;background:linear-gradient(90deg,transparent,var(--emerald))}
+.sec-label::after{background:linear-gradient(90deg,var(--emerald),transparent)}
+.sec-title{font-size:clamp(2rem,5.5vw,3rem);font-weight:800;letter-spacing:-.03em;margin-top:1rem}
+.sec-sub{color:var(--muted);margin-top:.9rem;max-width:40rem;margin-left:auto;margin-right:auto;font-weight:300}
+
+/* about */
+.about-lead{font-size:1.2rem;line-height:1.85;color:rgba(255,255,255,.86);text-align:center;max-width:48rem;margin:0 auto}
+.about-lead + .about-lead{margin-top:1.25rem;font-size:1.05rem;color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:3rem}
+.fact{border:1px solid var(--line);border-radius:1rem;background:var(--card);padding:1.25rem;transition:background .2s,border-color .2s}
+.fact:hover{background:var(--card-hover);border-color:rgba(255,255,255,.22)}
+.fact .k{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.fact .v{margin-top:.4rem;font-size:1rem;color:rgba(255,255,255,.92)}
+.fact .v b{color:var(--emerald);font-weight:600}
+@media(min-width:48rem){.facts{grid-template-columns:repeat(4,1fr)}}
+
+/* work / featured cards with image slot */
+.work-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+@media(min-width:48rem){.work-grid{grid-template-columns:repeat(2,1fr)}}
+.wcard{border:1px solid var(--line);border-radius:1.2rem;overflow:hidden;background:var(--card);transition:transform .25s,border-color .25s,box-shadow .25s}
+.wcard:hover{transform:translateY(-4px);border-color:rgba(0,210,148,.4);box-shadow:0 22px 55px -28px rgba(0,210,148,.55)}
+.wimg{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 120% at 20% 10%,rgba(0,210,148,.22),transparent 55%),radial-gradient(120% 120% at 90% 90%,rgba(192,126,255,.22),transparent 55%),#0b0b0d;border-bottom:1px solid var(--line)}
+.wimg .ph{font-family:var(--font-mono);font-size:.72rem;color:var(--faint);border:1px dashed var(--line);border-radius:9999px;padding:.25rem .7rem}
+.wimg .em{font-size:2.4rem}
+.wbody{padding:1.4rem}
+.wbody h3{font-size:1.15rem;font-weight:700}
+.wbody p{margin-top:.55rem;color:var(--muted);font-size:.95rem;line-height:1.7}
+.wbody .metric{margin-top:.9rem;font-family:var(--font-mono);font-size:.8rem;color:var(--emerald)}
+.tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.45rem}
+.tag{font-family:var(--font-mono);font-size:.7rem;color:var(--muted);border:1px solid var(--line);border-radius:9999px;padding:.2rem .6rem}
+
+/* experience timeline */
+.exp-list{max-width:52rem;margin:0 auto;border-top:1px solid var(--line)}
+.exp-item{border-bottom:1px solid var(--line)}
+.exp-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.4rem .25rem;text-align:left;transition:padding-left .25s}
+.exp-head:hover{padding-left:.7rem}
+.exp-head .idx{font-family:var(--font-mono);font-size:.78rem;color:var(--emerald);margin-right:1rem}
+.exp-head .t{display:block;font-weight:600;font-size:1.08rem}
+.exp-head .m{display:block;font-family:var(--font-mono);font-size:.78rem;color:var(--faint);margin-top:.3rem}
+.exp-head .plus{flex-shrink:0;color:var(--muted);transition:transform .3s,color .2s}
+.exp-item.open .exp-head .plus{transform:rotate(45deg);color:var(--emerald)}
+.exp-item.open .exp-head .t{color:var(--emerald)}
+.exp-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.exp-inner{padding:0 .25rem 1.6rem}
+.exp-inner p{color:var(--muted);line-height:1.8}
+
+/* projects */
+.proj-intro{text-align:center;color:var(--muted);max-width:40rem;margin:0 auto 2.5rem;font-weight:300}
+.grid2{display:grid;grid-template-columns:1fr;gap:1.5rem}
+@media(min-width:48rem){.grid2{grid-template-columns:repeat(2,1fr)}}
+.pcard{position:relative;padding:1.6rem;border:1px solid var(--line);border-radius:1.1rem;background:var(--card);transition:transform .25s,background .25s,box-shadow .25s;display:block}
+.pcard:hover{transform:translateY(-4px);background:var(--card-hover);box-shadow:0 20px 50px -26px rgba(84,162,255,.5)}
+.pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.pcard h3{font-size:1.15rem;font-weight:700}
+.pcard .arrow{flex-shrink:0;color:var(--muted);transition:color .25s,transform .25s}
+.pcard:hover .arrow{color:var(--emerald);transform:translate(2px,-2px)}
+.pcard p{margin-top:.6rem;color:var(--muted);line-height:1.7;font-size:.94rem}
+.pcard .metric{margin-top:.85rem;font-family:var(--font-mono);font-size:.8rem;color:var(--emerald)}
+.soon{font-family:var(--font-mono);font-size:.68rem;color:var(--faint);border:1px dashed var(--line);border-radius:9999px;padding:.15rem .55rem;white-space:nowrap}
+
+/* blog */
+.blog-list{max-width:48rem;margin:0 auto;display:flex;flex-direction:column;gap:.4rem}
+.bpost{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem .5rem;border-bottom:1px solid var(--line);transition:padding-left .25s}
+.bpost:hover{padding-left:.7rem}
+.bpost .bt{font-size:1.05rem;font-weight:600;transition:color .2s}
+.bpost:hover .bt{color:var(--emerald)}
+.bpost .bd{font-family:var(--font-mono);font-size:.75rem;color:var(--faint);margin-top:.35rem}
+.bpost .barrow{flex-shrink:0;color:var(--faint);transition:color .2s,transform .2s}
+.bpost:hover .barrow{color:var(--emerald);transform:translate(2px,-2px)}
+.blog-note{text-align:center;margin-top:2rem;font-family:var(--font-mono);font-size:.8rem;color:var(--faint)}
+
+/* contact */
+#contact{text-align:center}
+.contact-big{font-size:clamp(2.4rem,8vw,4.5rem);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.contact-sub{color:var(--muted);margin-top:1.4rem;font-size:1.1rem;line-height:1.7;max-width:36rem;margin-left:auto;margin-right:auto;font-weight:300}
+.contact-mail{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.25rem;font-family:var(--font-mono);font-size:clamp(1.05rem,4vw,1.7rem);color:var(--emerald);border-bottom:1px solid rgba(0,210,148,.4);padding-bottom:.3rem;transition:border-color .2s}
+.contact-mail:hover{border-color:var(--emerald)}
+.contact-meta{margin-top:1.4rem;font-family:var(--font-mono);font-size:.85rem;color:var(--faint)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:2.5rem 1.25rem}
+.foot-inner{max-width:64rem;margin:0 auto;display:flex;flex-direction:column;gap:1.25rem;align-items:center;text-align:center}
+.foot-credit{font-family:var(--font-mono);font-size:.78rem;color:var(--faint)}
+.foot-socials{display:flex;align-items:center;gap:1.25rem}
+.foot-socials a{color:var(--muted);transition:color .2s,transform .2s}
+.foot-socials a:hover{color:var(--emerald);transform:translateY(-2px)}
+.backtop{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);transition:color .2s}
+.backtop:hover{color:var(--emerald)}
+@media(min-width:48rem){.foot-inner{flex-direction:row;justify-content:space-between}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease-out,transform .7s ease-out}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="bg-glow" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
+<div class="noise" aria-hidden="true"></div>
+
+<div id="loader" aria-hidden="true">
+  <div class="bars"><div></div><div></div><div></div><div></div></div>
+  <p class="lp">Loading</p>
+</div>
+
+<div id="page">
+
+<!-- ================= NAV ================= -->
+<nav>
+  <div class="nav-pill">
+    <a href="#home" class="nav-logo grad">DY</a>
+    <span class="nav-sep"></span>
+    <div class="nav-links">
+      <a href="#about" class="nav-item">About</a>
+      <a href="#work" class="nav-item">Work</a>
+      <a href="#experience" class="nav-item">Experience</a>
+      <a href="#projects" class="nav-item">Projects</a>
+      <a href="#blog" class="nav-item">Blog</a>
+      <a href="#contact" class="nav-item">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open Menu">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#blog">Blog</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<section id="home">
+  <span class="badge rise" style="animation-delay:0ms"><span class="dot"></span>based in Hong Kong</span>
+  <h1 class="hero-name rise" style="animation-delay:120ms">Dolly Dong</h1>
+  <p class="hero-role rise" style="animation-delay:240ms"><span class="grad" id="role"></span><span class="cursor"></span></p>
+  <p class="hero-tagline rise" style="animation-delay:360ms">
+    Corporate Comm @ PolyU <span class="sep">·</span> Growing AI products overseas <span class="sep">·</span> Turning tech into stories <span class="sep">·</span> Bilingual 中/EN (IELTS 7.0)
+  </p>
+  <div class="socials rise" style="animation-delay:480ms">
+    <a class="sbtn solid" href="https://linkedin.com/in/dolly-dong-0bb4612ba" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a class="sbtn" href="https://www.tiktok.com/@dedededede033" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+      TikTok
+    </a>
+    <a class="sbtn" href="mailto:dongyafei25@163.com">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email
+    </a>
+    <!-- 公众号如有对外链接，替换 href="#" -->
+    <a class="sbtn" href="#" data-placeholder="wechat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.69 4C4.55 4 1.2 6.79 1.2 10.23c0 1.9 1.03 3.6 2.66 4.77l-.67 2 2.33-1.17c.83.23 1.7.36 2.6.37h.45a5.2 5.2 0 0 1-.2-1.42c0-3.06 2.98-5.54 6.65-5.54.24 0 .48.02.72.05C15.2 6.02 12.27 4 8.69 4Zm-2.5 3.2a.94.94 0 1 1 0 1.88.94.94 0 0 1 0-1.88Zm5.02 0a.94.94 0 1 1 0 1.88.94.94 0 0 1 0-1.88Zm3.53 3.1c-3.06 0-5.54 2.06-5.54 4.6 0 2.55 2.48 4.6 5.54 4.6.66 0 1.3-.1 1.9-.28l1.9.96-.55-1.64c1.34-.96 2.2-2.38 2.2-3.64 0-2.54-2.48-4.6-5.35-4.6Zm-1.8 2.5a.78.78 0 1 1 0 1.56.78.78 0 0 1 0-1.56Zm3.6 0a.78.78 0 1 1 0 1.56.78.78 0 0 1 0-1.56Z"/></svg>
+      微信公众号 <span class="soon">链接待补充</span>
+    </a>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-label">About</span>
+      <h2 class="sec-title">So, who am I?</h2>
+      <p class="sec-sub">Growth marketer, brand storyteller, and a long-time bilingual writer.</p>
+    </div>
+    <div class="reveal">
+      <p class="about-lead">
+        我叫董娅菲，朋友们叫我 Dolly。英语专业出身，现在在香港理工大学读中英企业传讯硕士。毕业后的第一份工作在小米手机部——两年里我搭建了北京、南京、深圳三地实验室展区设计，也统筹过手机产品和实验室的短视频传播。那段经历教会我一件事：再硬核的技术，也要讲成一个让人愿意听的故事。
+      </p>
+      <p class="about-lead">
+        2026 年我进入 AI 出海的浪潮，在深言科技负责 NeoDrop 北美市场冷启动：从零制定触达策略，在 Reddit 和 LinkedIn 上寻找目标用户，再用 PostHog 盯数据、分析留存。从策略、执行到验收，这个增长闭环我完整跑了一遍。工作之外，我用中英双语写公众号——六十多篇文章、五万多次阅读，是我坚持最久的一件事。
+      </p>
+    </div>
+    <div class="facts reveal">
+      <div class="fact"><div class="k">Now</div><div class="v">深言科技 · <b>NeoDrop 北美增长</b></div></div>
+      <div class="fact"><div class="k">Studying</div><div class="v">港理工 · 中英企业传讯硕士</div></div>
+      <div class="fact"><div class="k">Languages</div><div class="v"><b>IELTS 7.0</b> · 英语专八 · 韩语</div></div>
+      <div class="fact"><div class="k">Toolkit</div><div class="v">PostHog · GTM · AI 工作流</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-label">Work</span>
+      <h2 class="sec-title">Things I've shipped</h2>
+      <p class="sec-sub">从品牌传播到海外增长，我最看重的两段实战。</p>
+    </div>
+    <div class="work-grid">
+
+      <!-- 图片位：替换 .wimg 内的占位为项目截图 -->
+      <div class="wcard reveal">
+        <div class="wimg"><span class="em">🚀</span><span class="ph" style="position:absolute;bottom:.7rem;right:.7rem">图片待补充</span></div>
+        <div class="wbody">
+          <h3>NeoDrop · 北美市场冷启动</h3>
+          <p>独立负责 AI 出海产品 NeoDrop 的北美增长：细分人群 GTM、多渠道触达体系、PostHog 数据漏斗与用户再激活，跑通「策略 → 执行 → 验收」完整闭环。</p>
+          <div class="metric">D7 留存目标 ≥40% · DM 回复率 ≥15% · 月预算 &lt;$450</div>
+          <div class="tags"><span class="tag">GTM</span><span class="tag">PostHog</span><span class="tag">冷启动</span><span class="tag">社媒矩阵</span></div>
+        </div>
+      </div>
+
+      <div class="wcard reveal">
+        <div class="wimg"><span class="em">🏛️</span><span class="ph" style="position:absolute;bottom:.7rem;right:.7rem">图片待补充</span></div>
+        <div class="wbody">
+          <h3>小米实验室全球接待体系</h3>
+          <p>从 0 到 1 主导小米手机部实验室全球政企参观接待体系与北京、南京、深圳三地展区设计，把「科技实力」变成可被参观、可被讲述的品牌体验。</p>
+          <div class="metric">416 场次 · 8,807 人次 · 覆盖 200+ 家企业</div>
+          <div class="tags"><span class="tag">品牌传播</span><span class="tag">跨部门协作</span><span class="tag">展区设计</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-label">Experience</span>
+      <h2 class="sec-title">Where I've worked</h2>
+    </div>
+    <div class="exp-list reveal">
+
+      <div class="exp-item">
+        <button class="exp-head" aria-expanded="false">
+          <div style="display:flex;align-items:baseline"><span class="idx">01</span><div><span class="t">海外增长与品牌运营 · NeoDrop AI 出海北美</span><span class="m">北京深言科技有限公司 · 2026.04 – 至今</span></div></div>
+          <svg class="plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="exp-body"><div class="exp-inner"><p>独立负责北美市场冷启动：产出「美股散户投资者」人群 GTM 触达手册并向管理层汇报，设计 8 类渠道优先级矩阵与 4 周验收指标体系（DM 回复率 ≥15%、D7 留存 ≥40%）；调研 7 款海外自动化触达工具并将三渠道试跑月预算控制在 $450 以内；在 Reddit、LinkedIn 搭建三步冷启动 DM 触达体系完成种子用户积累；用 PostHog 按渠道打 cohort 标签跟踪激活漏斗并一对一陪跑卡点用户；统筹 X、YouTube、LinkedIn、TikTok、Discord、Reddit 六大海外渠道与国内微信公众号的内容与社区运营。</p></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-head" aria-expanded="false">
+          <div style="display:flex;align-items:baseline"><span class="idx">02</span><div><span class="t">品牌传播 · 测试部实验室管理组</span><span class="m">北京小米移动软件有限公司 · 2023.06 – 2025.07</span></div></div>
+          <svg class="plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="exp-body"><div class="exp-inner"><p>主导构建小米手机部实验室全球政企参观接待体系，策划执行谷歌、微软、高通等 200+ 家企业高管及政府官员接待（416 场次、8,807 人次）；统筹抖音、微博等平台产品推广内容，管理 40+ 款新品（含 MIX Fold4、小米 14）及高管账号短视频的拍摄与审核；从 0 到 1 主导三地实验室展区设计，协调 7 个部门资源，统筹 12 间实验室宣传片拍摄全流程。</p></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-head" aria-expanded="false">
+          <div style="display:flex;align-items:baseline"><span class="idx">03</span><div><span class="t">新媒体运营 · 个人社交媒体矩阵</span><span class="m">个人项目 · 2022.08 – 至今</span></div></div>
+          <svg class="plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="exp-body"><div class="exp-inner"><p>独立运营个人微信公众号，发表中英双语文章 60 余篇，总订阅量 600+，总浏览量 5 万+，积累系统性内容运营与用户洞察能力；同时负责短视频内容策划与制作。</p></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-head" aria-expanded="false">
+          <div style="display:flex;align-items:baseline"><span class="idx">04</span><div><span class="t">业务发展部（实习）</span><span class="m">中国外运跨境电商物流有限公司 · 2023.01 – 2023.03</span></div></div>
+          <svg class="plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="exp-body"><div class="exp-inner"><p>跟踪进出口货运全流程节点，货物准时率达 98%；翻译进出口贸易文件 5 份（逾 1 万字），积累国际贸易与 ToB 商务沟通经验。</p></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-head" aria-expanded="false">
+          <div style="display:flex;align-items:baseline"><span class="idx">05</span><div><span class="t">礼宾助理（实习）</span><span class="m">北京 2022 年冬奥会及冬残奥会 · 2022.01 – 2022.04</span></div></div>
+          <svg class="plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="exp-body"><div class="exp-inner"><p>担任高山滑雪赛区校级队长，带领 53 人团队完成 410 小时中英双语礼宾服务，接待冬奥组委主席巴赫等重要嘉宾共 318 人次；主导制定标准化服务手册及应急预案，保障活动满意度 100%；获「优秀志愿者之星」。</p></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-label">Projects</span>
+      <h2 class="sec-title">Selected projects</h2>
+    </div>
+    <p class="proj-intro reveal">我喜欢把一个想法从策略跑到数据。这里是几个从头到尾自己带的项目。</p>
+    <div class="grid2">
+
+      <a class="pcard reveal" href="https://neodrop.ai" target="_blank" rel="noopener noreferrer">
+        <div class="pcard-top"><h3>NeoDrop 增长闭环</h3>
+          <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <p>为 AI 出海产品制定北美冷启动策略，多渠道触达 + PostHog 数据验收，一套「策略→执行→验收」闭环完整跑通。</p>
+        <div class="metric">neodrop.ai</div>
+        <div class="tags"><span class="tag">GTM</span><span class="tag">PostHog</span><span class="tag">AI 出海</span></div>
+      </a>
+
+      <a class="pcard reveal" href="https://www.tiktok.com/@dedededede033" target="_blank" rel="noopener noreferrer">
+        <div class="pcard-top"><h3>NeoDrop · TikTok 短视频</h3>
+          <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </div>
+        <p>面向北美用户策划并制作 TikTok 短视频，把 AI 技术功能转译为用户可感知的价值故事，配合冷启动品牌声量建设。</p>
+        <div class="metric">@dedededede033</div>
+        <div class="tags"><span class="tag">TikTok</span><span class="tag">短视频</span><span class="tag">剪映</span></div>
+      </a>
+
+      <div class="pcard reveal">
+        <div class="pcard-top"><h3>美股散户投资者 GTM 手册</h3><span class="soon">内部文档</span></div>
+        <p>独立产出的细分人群触达执行手册：JTBD 场景定位、8 类渠道优先级矩阵、四阶段执行流程与 4 周验收体系，作为付费投放 Go/No-Go 决策依据。</p>
+        <div class="metric">8 渠道矩阵 · 4 阶段流程 · Go/No-Go</div>
+        <div class="tags"><span class="tag">GTM 策略</span><span class="tag">渠道矩阵</span><span class="tag">数据验收</span></div>
+      </div>
+
+      <!-- 公众号如有对外链接，替换 href="#" -->
+      <a class="pcard reveal" href="#" data-placeholder="wechat">
+        <div class="pcard-top"><h3>中英双语公众号</h3><span class="soon">链接待补充</span></div>
+        <p>2022 年至今独立运营的中英双语公众号：从选题、写作到排版全流程独立完成，是我内容运营与用户洞察的长期练习场。</p>
+        <div class="metric">60+ 篇原创 · 600+ 订阅 · 5 万+ 浏览</div>
+        <div class="tags"><span class="tag">内容运营</span><span class="tag">中英双语</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= BLOG ================= -->
+<section id="blog" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-label">Blog</span>
+      <h2 class="sec-title">Writing</h2>
+      <p class="sec-sub">All writings, newest first. 中英双语，关于增长、品牌与出海。</p>
+    </div>
+    <div class="blog-list reveal">
+      <!-- 每篇文章链接待补充：替换 href="#" 为公众号文章链接 -->
+      <a class="bpost" href="#" data-placeholder="post">
+        <div><div class="bt">从 0 到 1：AI 产品如何在北美冷启动</div><div class="bd">Growth · 链接待补充</div></div>
+        <svg class="barrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+      <a class="bpost" href="#" data-placeholder="post">
+        <div><div class="bt">把技术讲成故事：我在小米学到的品牌传播</div><div class="bd">Brand · 链接待补充</div></div>
+        <svg class="barrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+      <a class="bpost" href="#" data-placeholder="post">
+        <div><div class="bt">用 PostHog 看懂用户：一个增长漏斗的复盘</div><div class="bd">Data · 链接待补充</div></div>
+        <svg class="barrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+    </div>
+    <p class="blog-note reveal">// 公众号已发表中英双语文章 60+ 篇，此处为精选，链接稍后补充</p>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="sec">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="sec-label" style="display:block;text-align:center;margin-bottom:1.2rem">Contact</span>
+      <h2 class="contact-big"><span class="grad">Let's build</span><br/>something worth telling.</h2>
+      <p class="contact-sub">有想法？想合作？还是只想边喝咖啡边聊聊增长和出海？<br/>我都很乐意。正在寻找用户增长 / 品牌运营方向的机会。</p>
+      <a href="mailto:dongyafei25@163.com" class="contact-mail">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        dongyafei25@163.com
+      </a>
+      <p class="contact-meta">+86 188 0117 8519 · Hong Kong / Beijing</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-inner">
+    <p class="foot-credit">© 2026 Dolly Dong 董娅菲 — Turning tech into stories.</p>
+    <div class="foot-socials">
+      <a href="https://linkedin.com/in/dolly-dong-0bb4612ba" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dedededede033" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+      </a>
+      <a href="mailto:dongyafei25@163.com" aria-label="Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+    </div>
+    <button class="backtop" id="backTop" aria-label="Back to top">
+      Back to top
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+    </button>
+  </div>
+</footer>
+
+</div><!-- /#page -->
+
+<script>
+// loading
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+    document.getElementById('page').classList.add('ready');
+  }, 1300);
+});
+setTimeout(() => {
+  document.getElementById('loader').classList.add('done');
+  document.getElementById('page').classList.add('ready');
+}, 3000);
+
+// typewriter role (cycle like reference: Hacker / Builder / Founder)
+const roles = ['Growth Marketer','Brand Storyteller','Community Builder','Storyteller & Strategist'];
+const roleEl = document.getElementById('role');
+let ri = 0, ci = 0, deleting = false;
+function tick(){
+  const word = roles[ri];
+  if(!deleting){
+    ci++;
+    roleEl.textContent = word.slice(0, ci);
+    if(ci === word.length){ deleting = true; return setTimeout(tick, 1600); }
+    setTimeout(tick, 85);
+  } else {
+    ci--;
+    roleEl.textContent = word.slice(0, ci);
+    if(ci === 0){ deleting = false; ri = (ri + 1) % roles.length; return setTimeout(tick, 350); }
+    setTimeout(tick, 42);
+  }
+}
+setTimeout(tick, 900);
+
+// experience accordion
+document.querySelectorAll('.exp-head').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.exp-item');
+    const body = item.querySelector('.exp-body');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.exp-item.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.exp-body').style.maxHeight = '0';
+      o.querySelector('.exp-head').setAttribute('aria-expanded', 'false');
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+// placeholder links do nothing
+document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+
+// reveal on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.textContent = open ? '✕' : '☰';
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  hamburger.textContent = '☰';
+  document.body.style.overflow = '';
+}));
+
+// back to top
+document.getElementById('backTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
